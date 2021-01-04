@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+  <title>Login</title>
+  <script src="assets/plugins/jquery/jquery-3.3.1.min.js"></script>
+  <link rel="stylesheet" href="assets/plugins/bootstrap-3.3.7-dist/css/bootstrap.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="login-form">
+  <form>
+    <h2 class="text-center">Login</h2>       
+      <div class="form-group">
+        <input type="text" id="username" class="form-control" placeholder="Username" required="required">
+      </div>
+      <div class="form-group">
+        <input type="password" id="password" class="form-control" placeholder="Password" required="required">
+      </div>
+      <div class="form-group">
+        <button id="bLogIn" type="button" class="btn btn-primary btn-block" onclick="LogIn()">Log in</button>
+      </div>
+  </form>
+</div>
+<script src="assets/plugins/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-database.js"></script>
+<script src="js/firebase_config.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>

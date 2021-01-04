@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+	<title>Human resource administration</title>
+	<script src="assets/plugins/jquery/jquery-3.3.1.min.js"></script>
+	<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<link rel="stylesheet" href="assets/plugins/bootstrap-3.3.7-dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+	    <div class="navbar-header">
+	     	<span class="navbar-brand"></span>
+	    </div>
+	    <ul class="nav navbar-nav">
+		     <li class="active"><a class="navbar-brand" href="human_resource_administration.html"><u>Human resource administration</u></a></li>
+		     <li><a class="navbar-brand" href="job_categories.html">Job categories</a></li>
+	    </ul>
+	    <ul class="nav navbar-nav navbar-right">
+	     	<li><a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Sign out</a></li>
+	    </ul>
+	</div>
+</nav>
+<div class="persons-container">
+	<div id="table-container">
+		<h4>Add person: <button class="btn btn-success" onclick="OpenAddPersonModal()"><span class="glyphicon glyphicon-plus-sign"></span></button></h3>
+		<table id="table-persons" class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Name</th>
+					<th>Surname</th>
+					<th>OIB</th>
+					<th>Birth year</th>
+					<th>Qualifications</th>
+					<th>Years of experience</th>
+					<th>Job categories</th>
+					<th>Biography</th>
+					<th>Edit</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div class="modal fade" id="add-person" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Add person</h4>
+			</div>
+			<div class="modal-body">
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="inptName">Name</label>
+					<input type="text" class="form-control" id="inptName">
+				</div>
+				<div class="form-group">
+					<label for="inptSurname">Surname</label>
+					<input type="text" class="form-control" id="inptSurname">
+				</div>
+				<div class="form-group">
+					<label for="inptOIB">OIB</label>
+					<input type="number" class="form-control" id="inptOIB" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==11) return false;">
+				</div>
+				<div class="form-group">
+					<label for="inptBirthYear">Birth year</label>
+					<input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==4) return false;" class="form-control" id="inptBirthYear">
+				</div>
+				<div class="form-group">
+					<label for="inptQualifications">Qualifications</label>
+					<input type="text" class="form-control" id="inptQualifications">
+				</div>
+				<div class="form-group">
+					<label for="inptYearsOfExperience">Years of experience</label>
+					<input type="number" class="form-control" id="inptYearsOfExperience" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;">
+				</div>
+				<div class="form-group">
+					<label for="inptJobCategory">Job categories</label>
+					<div id="job-categories-wrapper">		
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="txtBiography">Biography</label>
+					<textarea class="form-control" rows="5" id="txtBiography"></textarea>
+				</div>
+			</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-success" data-dismiss="modal" onclick="AddPerson()">Add</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="edit-person">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="">Edit person</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="inptEditName">Name</label>
+					<input type="text" class="form-control" id="inptEditName">
+				</div>
+				<div class="form-group">
+					<label for="inptEditSurname">Surname</label>
+					<input class="form-control" rows="5" id="inptEditSurname">
+				</div>
+				<div class="form-group">
+					<label for="inptEditOIB">OIB</label>
+					<input type="number" class="form-control" id="inptEditOIB" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==11) return false;">
+				</div>
+				<div class="form-group">
+					<label for="inptEditBirthYear">Birth year</label>
+					<input type="number" class="form-control" id="inptEditBirthYear" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==4) return false;">
+				</div>
+				<div class="form-group">
+					<label for="inptEditQualifications">Qualifications</label>
+					<input type="text" class="form-control" id="inptEditQualifications">
+				</div>
+				<div class="form-group">
+					<label for="inptEditYearsOfExperience">Years of experience</label>
+					<input type="number" class="form-control" id="inptEditYearsOfExperience" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;">
+				</div>
+				<div class="form-group">
+					<label for="inptEditJobCategory">Job category</label>
+					<div id="job-categories-wrapper-edit">
+					</div>	
+				</div>
+				<div class="form-group">
+					<label for="txtEditBiography">Biography</label>
+					<textarea class="form-control" rows="5" id="txtEditBiography"></textarea>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-success" data-dismiss="modal" id="bEditPerson">Edit</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="show-biography">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="">Biography</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="showBiography"></label>
+					<textarea readonly class="form-control" rows="5" id="showBiography"></textarea>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="assets/plugins/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-database.js"></script>
+<script src="js/firebase_config.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
